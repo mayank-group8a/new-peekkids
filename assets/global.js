@@ -504,11 +504,20 @@ class VariantSelects extends HTMLElement {
 
   updateCrossout()
   {
-
     const productId = this.parentElement.dataset.productid;
-    console.log(productId);
+    var selected_length = document.querySelectorAll('.product-form__input input[type="radio"]:checked').length;
+    var product = $('.product__info-container').data('product');
+    var options_length = product.options.length;
+    if(selected_length == 1){
+      if(options_length == 2){
+        var first_size_option = $('.product-form__input.product-form__input_size input[type="radio"]:eq(0)').val();
+        console.log(first_size_option);
+      }
+    }
     this.updateOptions();
     this.updateMasterId();
+    console.log(this);
+    
     console.log(this.currentVariant);
     // console.log(this.currentVariant.available);
     // console.log(this.parentElement.querySelector('.product-form__input input[type="radio"]:checked+label'));
@@ -519,11 +528,17 @@ class VariantSelects extends HTMLElement {
     // if(this.currentVariant.available===false)
     // {
       if(document.querySelectorAll('.product-form__input.color-swatches input[type="radio"]').length > 0){
+        console.log('this');
+        if(this.currentVariant == undefined){
+          console.log('thats');
+          this.currentVariant = product.variants[0]
+         }
+          console.log(this.currentVariant);
         if(document.querySelector('.product-form__input.color-swatches input[type="radio"]:checked').value==this.currentVariant.option2)
         {
           $(this.getVariantData()).each(function(index,item) {
             // console.log('musaddiqa');
-            // console.log(item);
+            console.log(item);
             if(!item.available && document.querySelector('.product-form__input.color-swatches input[type="radio"]').value==item.option2)
             {
               let size=item.option1;
