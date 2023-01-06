@@ -293,7 +293,7 @@
                           <input type="radio" id="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
                                 name="{{ option.name }}"
                                 value="{{ value | escape }}"
-                                form="product-form-{{ sectison.id }}"
+                                form="product-form-{{ section.id }}"
                                 {% if option.selected_value == value and optionName != 'size' and product.type != 'Gift Card' %}checked{% endif %}
                           >
                             {% if optionName == 'color' %}
@@ -539,6 +539,14 @@
 
   <script src="{{ 'product-model.js' | asset_url }}" defer></script>
 {%- endif -%}
+
+{% if section.settings.hide_soldout_variants %}
+  <style>
+    .small-container fieldset.product-form__input input[type=radio]+label.crossout {
+      display: none;
+  }
+  </style>
+{% endif %}
 
 {% schema %}
 
@@ -806,7 +814,12 @@
             "id": "enable_video_looping",
             "default": false,
             "label": "t:sections.main-product.settings.enable_video_looping.label"
-        }
+        }, {
+          "type": "checkbox",
+          "id": "hide_soldout_variants",
+          "default": true,
+          "label": "Hide soldout variants"
+      }
     ]
 }
 
